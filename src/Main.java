@@ -1,111 +1,80 @@
-import java.util.*;
-abstract class Animal{
-    abstract void  makesound();
-    String name;
-    int age;
-    public Animal(String name,int age){
-        this.name = name;
-        this.age = age;
+import java.util.ArrayList;
+
+abstract class Book{
+    private String title;
+    private String author;
+    private String category;
+    public Book(String title, String author, String category){
+        this.title = title;
+        this.author = author;
+        this.category = category;
     }
-    public String getName(){
-        return name;
+
+    public String getTitle(){
+        return title;
     }
-    public int getAge(){
-        return age;
+
+    public String getAuthor(){
+        return author;
     }
+    public String getCategory(){
+        return category;
+    }
+
+   abstract void category();
+
+     public String tostring(){
+         return "tytuł:"+title +"autor: "+ author+"kategoria: "+category;
+     }
+
 
 }
-
-interface Adoptable{
- boolean adopt();
-
+interface Readble{
+    public void read(String title);
 
 }
-class Dog extends Animal implements Adoptable {
-
-    public void makesound() {
-        System.out.println("Dog makesound");
+class Fancy extends Book implements Readble{
+    public Fancy(String title, String author, String category){
+        super(title, author, category);
     }
-
-    public Dog(String name, int age) {
-        super(name, age);
-
+    public void category(){
+        System.out.println("Fancy");
     }
-    public boolean adopt() {
-        if (age > 1) {
-            return true;
+    public void read(String title){
 
-        } else {
-            return false;
-        }
 
     }
 }
-
-class Cat extends Animal implements Adoptable{
-    public Cat(String name, int age) {
-        super(name, age);
+class Sience extends Book implements Readble{
+    public Sience(String title, String author, String category){
+        super(title, author, category);
     }
-
-
-    public boolean adopt() {
-         if (age>1){
-             return true;
-         }
-         else{
-             return false;
-         }
+    public void category(){
+        System.out.println("Nauka");
     }
-
-    public void makesound(){
-        System.out.println("Cat makesound");
-
-    }
-
+    public void read(String title){}
 }
 
-class Horse extends Animal implements Adoptable{
-    public Horse(String name, int age) {
-        super(name, age);
-    }
-
-    public void makesound(){
-        System.out.println("Horse makesound");
-    }
-
-      public boolean adopt() {
-            if (age>1){
-            return true;
-            }
-            else{
-                return false;
-            }
-      }
-
-    }
 
 
 
 public class Main {
     public static void main(String[] args) {
-        Dog dog = new Dog("rex",10);
-        Cat cat = new Cat("kot",10);
-        Horse horse = new Horse("zywiec zdruj",10);
 
-        ArrayList<Animal> animal = new ArrayList<>();
-        animal.add(new Dog("rex",10));
-        animal.add(new Cat("kot",10));
-        animal.add(new Horse("zywiec zdruj",10));
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(new Fancy("wiedżmin  ", "  Andrzej sapkowski  ","fancy"));
+        books.add(new Sience("krotka  historia czasu  ", "  Stephen Hawking  ","Nauka"));
+        books.add(new Fancy("Harry Potter  ", "  J.K. Rowling  ","fancy"));
+        for (Book book : books) {
+            System.out.println(book.tostring());
 
-        for (Animal a : animal) {
-            System.out.println("name  " + a.getName());
-            System.out.println("wiek  " + a.getAge());
         }
-        double srednia=(cat.age+horse.age+dog.age)/3;
-        System.out.println(srednia);
+        System.out.println();
+        System.out.println();
 
-
-
+        for (int i=0; i<books.size(); i++) {
+            System.out.println("czytasz: "+books.get(i).getTitle());
+        }
     }
 
 }
